@@ -1,7 +1,3 @@
-
-
-
-
 use anyhow::{Result};
 use itertools::izip;
 use crate::util::parse_lines;
@@ -28,5 +24,39 @@ pub fn solution2(input: &str) -> Result<String> {
         .filter(|(now,before)| now > before).count();
 
     Ok(format!("{}", r))
+}
+
+
+mod tests {
+    use indoc::indoc;
+    use crate::day1::{solution1, solution2};
+
+    #[test]
+    fn test_part1() {
+        assert_eq!(solution1(indoc!("199
+                    200
+                    208
+                    210
+                    200
+                    207
+                    240
+                    269
+                    260
+                    263")).unwrap(), "7")
+    }
+
+    #[test]
+    fn test_part2() {
+        assert_eq!(solution2(indoc!("199
+                    200
+                    208
+                    210
+                    200
+                    207
+                    240
+                    269
+                    260
+                    263")).unwrap(), "5")
+    }
 }
 

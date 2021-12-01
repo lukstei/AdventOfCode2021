@@ -9,4 +9,5 @@ edition = "2021"
 regex = "1.5"
 anyhow = "1.0.51"
 itertools = "0.10.1"
+indoc = "1.0"
 
