@@ -16,7 +16,7 @@ pub fn solution1(input: &str) -> Result<String> {
             match dir.as_str() {
                 "forward" => hor += am,
                 "down" => vert += am,
-                "up" => vert -= am,//.min(0),
+                "up" => vert -= am,
                 _ => panic!("kk")
             }
         });
