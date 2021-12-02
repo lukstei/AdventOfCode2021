@@ -17,7 +17,7 @@ pub fn solution1(input: &str) -> Result<String> {
                 "forward" => hor += am,
                 "down" => vert += am,
                 "up" => vert -= am,
-                _ => panic!("kk")
+                _ => panic!()
             }
         });
 
