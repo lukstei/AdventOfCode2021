@@ -43,7 +43,7 @@ fn solution1(input: &str) -> Result<String> {
 
     let n2 = isize::from_str_radix(&n2_str, 2).unwrap();
 
-    Ok(format!("{}", n1*n2))
+    Ok(format!("{}", n1 * n2))
 }
 
 fn solution2(input: &str) -> Result<String> {
@@ -59,7 +59,7 @@ fn solution2(input: &str) -> Result<String> {
     let len = ys[0].len();
 
     let mut ys1 = ys.clone();
-    let mut winner1:Option<String> = None; // 23
+    let mut winner1: Option<String> = None; // 23
     (0..len).for_each(|i| {
         let xx = ys1.iter().fold((0, 0), |mut b, x1| {
             let x3 = x1.as_str();
@@ -72,14 +72,14 @@ fn solution2(input: &str) -> Result<String> {
         });
         let winner_char = if xx.1 >= xx.0 { '1' } else { '0' };
 
-        ys1 = ys1.iter().filter(|s| s.chars().nth(i).unwrap()==winner_char).cloned().collect();
-        if ys1.len()==1{
+        ys1 = ys1.iter().filter(|s| s.chars().nth(i).unwrap() == winner_char).cloned().collect();
+        if ys1.len() == 1 {
             winner1 = Some(ys1[0].clone())
         }
     });
 
     let mut ys2 = ys.clone();
-    let mut winner2:Option<String> = None; // 23
+    let mut winner2: Option<String> = None; // 23
     (0..len).for_each(|i| {
         let xx = ys2.iter().fold((0, 0), |mut b, x1| {
             let x3 = x1.as_str();
@@ -92,8 +92,8 @@ fn solution2(input: &str) -> Result<String> {
         });
         let winner_char = if xx.0 <= xx.1 { '0' } else { '1' };
 
-        ys2 = ys2.iter().filter(|s| s.chars().nth(i).unwrap()==winner_char).cloned().collect();
-        if ys2.len()==1{
+        ys2 = ys2.iter().filter(|s| s.chars().nth(i).unwrap() == winner_char).cloned().collect();
+        if ys2.len() == 1 {
             winner2 = Some(ys2[0].clone())
         }
     });
@@ -101,7 +101,7 @@ fn solution2(input: &str) -> Result<String> {
     let n1 = isize::from_str_radix(&winner1.unwrap(), 2).unwrap();
     let n2 = isize::from_str_radix(&winner2.unwrap(), 2).unwrap();
 
-    Ok(format!("{}", n1*n2))
+    Ok(format!("{}", n1 * n2))
 }
 
 mod tests {
@@ -131,7 +131,7 @@ mod tests {
     const INPUT: &'static str = "day3.txt";
 
     #[test]
-    fn run_solution1(){
+    fn run_solution1() {
         run_solution(INPUT, solution1).unwrap()
     }
 
@@ -155,8 +155,7 @@ mod tests {
     }
 
     #[test]
-    fn run_solution2(){
+    fn run_solution2() {
         run_solution(INPUT, solution2).unwrap()
     }
-
 }
