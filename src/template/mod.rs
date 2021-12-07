@@ -47,6 +47,7 @@ mod tests {
     use indoc::indoc;
     use crate::run_solution;
     use crate::template::{solution1, solution2};
+    const INPUT: &'static str = "dayXX.txt";
 
     // PART 1
 
@@ -56,7 +57,6 @@ mod tests {
                    solution1(indoc!("")).unwrap());
     }
 
-    const INPUT: &'static str = "dayXX.txt";
 
     #[test]
     fn run_solution1(){
