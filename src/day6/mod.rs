@@ -60,7 +60,7 @@ fn solution1(input: &str) -> Result<String> {
 }
 
 fn solution2(input: &str) -> Result<String> {
-    let mut xs = input.split(",").map(|x| x.parse::<usize>().unwrap()).collect_vec();
+    let xs = input.split(",").map(|x| x.parse::<usize>().unwrap()).collect_vec();
 
     let mut pop = LaternfishPopulation::from_list(xs);
 

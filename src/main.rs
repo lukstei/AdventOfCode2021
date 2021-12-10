@@ -1,6 +1,7 @@
 #![allow(dead_code)]
 #![allow(unused_imports)]
 #![allow(unused_variables)]
+#![allow(unused_comparisons)]
 
 use std::{fs};
 use std::path::{Path};

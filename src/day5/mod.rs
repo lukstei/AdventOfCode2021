@@ -38,7 +38,7 @@ fn solution1(input: &str) -> Result<String> {
 
     for line in ys {
         for point in line.iter() {
-            match field.get(&point) {
+            match field.get(&point).cloned() {
                 None => field.insert(point, 1),
                 Some(r) => field.insert(point, r+1)
             };
@@ -62,7 +62,7 @@ fn solution2(input: &str) -> Result<String> {
                 l[4].parse::<i32>().unwrap()
             );
 
-            (Line((v1,v2), (v3,v4)))
+            Line((v1,v2), (v3,v4))
         })
         .collect::<Vec<Line>>();
 
@@ -86,7 +86,7 @@ fn solution2(input: &str) -> Result<String> {
                 .max(line.0.1.max(line.1.1)-line.0.1.min(line.1.1));
 
             (0..=distance).map(|i|(line.0.0+i*x_dir,line.0.1+i*y_dir)).for_each(|point|{
-                match field.get(&point) {
+                match field.get(&point).cloned() {
                     None => field.insert(point, 1),
                     Some(r) => field.insert(point, r+1)
                 };

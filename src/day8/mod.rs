@@ -32,7 +32,7 @@ struct SegmentHypothesis {
 impl SegmentHypothesis {
     pub fn new() -> SegmentHypothesis {
         let mut sets: [HashSet<char>; 7] = Default::default();
-        for mut x in sets.iter_mut() {
+        for x in sets.iter_mut() {
             "abcdefg".chars().for_each(|c| {
                 x.insert(c);
             })

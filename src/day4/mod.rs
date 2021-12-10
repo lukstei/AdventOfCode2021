@@ -44,7 +44,7 @@ fn solution1(input: &str) -> Result<String> {
 
     loop {
         for x in &numbers {
-            for mut b in bingos.iter_mut() {
+            for b in bingos.iter_mut() {
                 match &b.add(*x) {
                     None => {}
                     Some(score) => return Ok(format!("{}", *score))
@@ -83,7 +83,7 @@ fn solution2(input: &str) -> Result<String> {
 
     loop {
         for x in &numbers {
-            for (i, mut b) in bingos.iter_mut().enumerate() {
+            for (i, b) in bingos.iter_mut().enumerate() {
                 match &b.add(*x) {
                     None => {}
                     Some(score) => {

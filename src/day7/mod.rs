@@ -11,7 +11,7 @@ fn solution1(input: &str) -> Result<String> {
 }
 
 fn solution2(input: &str) -> Result<String> {
-    let mut xs = input.split(",").map(|x| x.parse::<i32>().unwrap()).sorted().collect_vec();
+    let xs = input.split(",").map(|x| x.parse::<i32>().unwrap()).sorted().collect_vec();
 
     let res: i32 = (*xs.first().unwrap()..=*xs.last().unwrap())
         .map(|res| {
