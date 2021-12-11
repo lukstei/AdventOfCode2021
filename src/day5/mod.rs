@@ -73,7 +73,7 @@ fn solution2(input: &str) -> Result<String> {
             (line.0.0.min(line.1.0)..=line.0.0.max(line.1.0)).flat_map(|x|{
                 (line.0.1.min(line.1.1)..=line.0.1.max(line.1.1)).map(move |y| (x,y))
             }).for_each(|point|{
-                match field.get(&point) {
+                match field.get(&point).cloned() {
                     None => field.insert(point, 1),
                     Some(r) => field.insert(point, r+1)
                 };
