@@ -273,7 +273,7 @@ mod tests {
 
     #[test]
     fn test_magnitude() {
-        let mut tree = Node::Leaf(Box::new(
+        let tree = Node::Leaf(Box::new(
             Tree::parse_tree("[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]").1,
         ));
 

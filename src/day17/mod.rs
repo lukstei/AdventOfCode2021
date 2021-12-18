@@ -35,7 +35,7 @@ impl State {
 }
 
 fn solution1(input: &str) -> Result<String> {
-    let mut highest_y_glob = (i32::MIN);
+    let mut highest_y_glob = i32::MIN;
     let mut successes: Vec<(i32, i32)> = Vec::new();
 
     for x in -1000..1000 {
@@ -46,7 +46,7 @@ fn solution1(input: &str) -> Result<String> {
                 target_area: ((32, 65), (-225, -177)),
             };
 
-            let mut highest_y = (i32::MIN);
+            let mut highest_y = i32::MIN;
 
             loop {
                 s.step();

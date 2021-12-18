@@ -92,7 +92,7 @@ fn solution1(input: &str) -> Result<String> {
     let mut sum = 0;
 
     for line in input.lines() {
-        let mut zero_vec = line
+        let zero_vec = line
             .chars()
             .map(|x| format!("{:04b}", x.to_digit(16).unwrap()))
             .join("");

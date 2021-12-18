@@ -49,7 +49,7 @@ fn cnt_rec(
 fn solution2(input: &str) -> Result<String> {
     let xs = parse_lines_regex(&input.lines().skip(1).join("\n").trim(), "^(.+?) -> (.+?)$")?;
 
-    let mut x = input.lines().next().unwrap().chars().collect_vec();
+    let x = input.lines().next().unwrap().chars().collect_vec();
     let mut all_chars: HashSet<char> = HashSet::new();
 
     let ys = xs
@@ -113,16 +113,14 @@ fn solution1(input: &str) -> Result<String> {
                 break;
             }
 
-            let mut has_inserted = false;
 
             let c1 = x[i];
             let c2 = x[i + 1];
             for ins in ys.iter() {
-                if (ins.0.chars().nth(0).unwrap() == c1 && ins.0.chars().nth(1).unwrap() == c2) {
+                if ins.0.chars().nth(0).unwrap() == c1 && ins.0.chars().nth(1).unwrap() == c2 {
                     i += 1;
                     //println!("Insert {} at pos {}", ins.1, i);
                     x.insert(i, ins.1);
-                    has_inserted = true;
                 }
             }
             //NBCCNBBBCBHCB

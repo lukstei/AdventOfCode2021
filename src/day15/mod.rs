@@ -9,11 +9,11 @@ fn solution1<'a>(input: &str) -> Result<String> {
     let ys = xs
         .iter()
         .map(|l| {
-            let (v1) = (l[1]
+            let v1 = l[1]
                 .as_str()
                 .chars()
                 .map(|x| x.to_digit(10).unwrap() as i32)
-                .collect_vec());
+                .collect_vec();
 
             v1
         })
@@ -44,7 +44,7 @@ fn solution1<'a>(input: &str) -> Result<String> {
         }
     }
 
-    let GOAL: Pos = Pos(
+    let goal: Pos = Pos(
         (ys[0].len() - 1) as i32,
         ys.len() as i32,
         ys[ys.len() - 1][ys[0].len() - 1],
@@ -64,11 +64,11 @@ fn solution2<'a>(input: &str) -> Result<String> {
     let ys = xs
         .iter()
         .map(|l| {
-            let (v1) = (l[1]
+            let v1 = l[1]
                 .as_str()
                 .chars()
                 .map(|x| x.to_digit(10).unwrap() as i32)
-                .collect_vec());
+                .collect_vec();
 
             v1
         })
@@ -125,7 +125,7 @@ fn solution2<'a>(input: &str) -> Result<String> {
         }
     }
 
-    let GOAL: Pos = Pos(
+    let goal: Pos = Pos(
         (ys[0].len() - 1) as i32,
         ys.len() as i32,
         ys[ys.len() - 1][ys[0].len() - 1],

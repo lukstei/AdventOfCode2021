@@ -10,7 +10,7 @@ fn fold_x(along_x: usize, marks: &mut HashSet<(usize, usize)>, max_x: usize, max
 
     (along_x + 1..=max_x).for_each(|x| {
         (0..=max_y).for_each(|y| {
-            let fold_to = (along_x as i32 - (x as i32 - along_x as i32));
+            let fold_to = along_x as i32 - (x as i32 - along_x as i32);
             //println!("Folding x={} to x={}", x, fold_to);
 
             if fold_to >= 0 {
@@ -29,7 +29,7 @@ fn fold_y(along_y: usize, marks: &mut HashSet<(usize, usize)>, max_x: usize, max
 
     (0..=max_x).for_each(|x| {
         (along_y + 1..=max_y).for_each(|y| {
-            let fold_to = (along_y as i32 - (y as i32 - along_y as i32));
+            let fold_to = along_y as i32 - (y as i32 - along_y as i32);
             //println!("Folding y={} to y={}", y, fold_to);
 
             if fold_to >= 0 {
