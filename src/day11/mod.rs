@@ -1,14 +1,18 @@
-use std::collections::{HashMap, HashSet};
-use anyhow::{Result};
-use itertools::{Itertools, izip};
 use crate::util::{parse_lines, parse_lines_regex};
+use anyhow::Result;
+use itertools::{izip, Itertools};
+use std::collections::{HashMap, HashSet};
 
 fn solution2(input: &str) -> Result<String> {
     let xs = parse_lines_regex(input, "^(.+?)$")?;
 
-    let mut ys = xs.iter()
+    let mut ys = xs
+        .iter()
         .map(|l| {
-            l[1].as_str().chars().map(|x| x.to_string().parse::<i32>().unwrap()).collect_vec()
+            l[1].as_str()
+                .chars()
+                .map(|x| x.to_string().parse::<i32>().unwrap())
+                .collect_vec()
         })
         .collect::<Vec<Vec<i32>>>();
 
@@ -35,7 +39,6 @@ fn solution2(input: &str) -> Result<String> {
                         ys[y][x] = -1;
                         was_flash = true;
                         flashes += 1;
-
 
                         if x >= 1 && ys[y][x - 1] >= 0 {
                             ys[y][x - 1] += 1;
@@ -87,13 +90,16 @@ fn solution2(input: &str) -> Result<String> {
     Ok(format!("{}", step))
 }
 
-
 fn solution1(input: &str) -> Result<String> {
     let xs = parse_lines_regex(input, "^(.+?)$")?;
 
-    let mut ys = xs.iter()
+    let mut ys = xs
+        .iter()
         .map(|l| {
-            l[1].as_str().chars().map(|x| x.to_string().parse::<i32>().unwrap()).collect_vec()
+            l[1].as_str()
+                .chars()
+                .map(|x| x.to_string().parse::<i32>().unwrap())
+                .collect_vec()
         })
         .collect::<Vec<Vec<i32>>>();
 
@@ -119,7 +125,6 @@ fn solution1(input: &str) -> Result<String> {
                         ys[y][x] = -1;
                         was_flash = true;
                         flashes += 1;
-
 
                         if x >= 1 && ys[y][x - 1] >= 0 {
                             ys[y][x - 1] += 1;
@@ -164,9 +169,9 @@ fn solution1(input: &str) -> Result<String> {
 }
 
 mod tests {
-    use indoc::indoc;
-    use crate::run_solution;
     use crate::day11::{solution1, solution2};
+    use crate::run_solution;
+    use indoc::indoc;
 
     const INPUT: &'static str = "day11.txt";
 
@@ -174,8 +179,10 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!("1656",
-                   solution1(indoc!("5483143223
+        assert_eq!(
+            "1656",
+            solution1(indoc!(
+                "5483143223
 2745854711
 5264556173
 6141336146
@@ -184,9 +191,11 @@ mod tests {
 2176841721
 6882881134
 4846848554
-5283751526")).unwrap());
+5283751526"
+            ))
+            .unwrap()
+        );
     }
-
 
     #[test]
     fn run_solution1() {
@@ -195,10 +204,12 @@ mod tests {
 
     // PART 2
 
-
     #[test]
     fn test_part2() {
-        assert_eq!("195", solution2(indoc!("5483143223
+        assert_eq!(
+            "195",
+            solution2(indoc!(
+                "5483143223
 2745854711
 5264556173
 6141336146
@@ -207,7 +218,10 @@ mod tests {
 2176841721
 6882881134
 4846848554
-5283751526")).unwrap());
+5283751526"
+            ))
+            .unwrap()
+        );
     }
 
     #[test]
@@ -215,4 +229,3 @@ mod tests {
         run_solution(INPUT, solution2).unwrap()
     }
 }
-

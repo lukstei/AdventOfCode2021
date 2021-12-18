@@ -1,7 +1,7 @@
-use std::collections::{HashMap, HashSet};
-use anyhow::{Result};
-use itertools::{Itertools, izip};
 use crate::util::{parse_lines, parse_lines_regex};
+use anyhow::Result;
+use itertools::{izip, Itertools};
+use std::collections::{HashMap, HashSet};
 
 #[derive(Copy, Clone)]
 struct Lanternfish(u32);
@@ -48,19 +48,28 @@ impl LaternfishPopulation {
     }
 }
 
-
 fn solution1(input: &str) -> Result<String> {
-    let mut xs = input.split(",").map(|x| x.parse::<u32>().unwrap()).map(|x| Lanternfish(x)).collect_vec();
+    let mut xs = input
+        .split(",")
+        .map(|x| x.parse::<u32>().unwrap())
+        .map(|x| Lanternfish(x))
+        .collect_vec();
 
     for x in 0..80 {
-        xs = xs.into_iter().flat_map(|mut x| x.step().map_or_else(|| vec![x], |n| vec![x, n])).collect_vec();
+        xs = xs
+            .into_iter()
+            .flat_map(|mut x| x.step().map_or_else(|| vec![x], |n| vec![x, n]))
+            .collect_vec();
     }
 
     Ok(format!("{}", xs.len()))
 }
 
 fn solution2(input: &str) -> Result<String> {
-    let xs = input.split(",").map(|x| x.parse::<usize>().unwrap()).collect_vec();
+    let xs = input
+        .split(",")
+        .map(|x| x.parse::<usize>().unwrap())
+        .collect_vec();
 
     let mut pop = LaternfishPopulation::from_list(xs);
 
@@ -71,18 +80,16 @@ fn solution2(input: &str) -> Result<String> {
     Ok(format!("{}", pop.len()))
 }
 
-
 mod tests {
-    use indoc::indoc;
-    use crate::run_solution;
     use crate::day6::{solution1, solution2};
+    use crate::run_solution;
+    use indoc::indoc;
 
     // PART 1
 
     #[test]
     fn test_part1() {
-        assert_eq!("5934",
-                   solution1(indoc!("3,4,3,1,2")).unwrap());
+        assert_eq!("5934", solution1(indoc!("3,4,3,1,2")).unwrap());
     }
 
     const INPUT: &'static str = "day6.txt";
@@ -94,7 +101,6 @@ mod tests {
 
     // PART 2
 
-
     #[test]
     fn test_part2() {
         assert_eq!("26984457539", solution2(indoc!("3,4,3,1,2")).unwrap());
@@ -105,4 +111,3 @@ mod tests {
         run_solution(INPUT, solution2).unwrap()
     }
 }
-
