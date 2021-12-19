@@ -7,7 +7,6 @@ type HashSet<T> = rustc_hash::FxHashSet<T>;
 //type HashSet<T> = std::collections::HashSet<T>;
 
 impl Vec3 {
-
     pub fn shift(&self, n: i32) -> Vec3 {
         match n {
             0 => Vec3(self.0, self.1, self.2),
@@ -69,15 +68,15 @@ struct Scanner {
 impl Scanner {
     fn zero(beacons: HashSet<Vec3>) -> Scanner {
         Scanner {
-            rot: Vec3(1,1,1),
+            rot: Vec3(1, 1, 1),
             pos: Vec3(0, 0, 0),
             shift: 0,
             beacons,
         }
     }
 
-    fn normalize(pos: Vec3, rot: Vec3, shift:i32, beacon: Vec3) -> Vec3{
-        beacon.shift(shift)*rot + pos
+    fn normalize(pos: Vec3, rot: Vec3, shift: i32, beacon: Vec3) -> Vec3 {
+        beacon.shift(shift) * rot + pos
     }
 
     fn align(&self, detected_beacons: &HashSet<Vec3>) -> Option<Scanner> {
@@ -109,7 +108,7 @@ impl Scanner {
                                 pos,
                                 beacons: detected_beacons.iter().map(|x| Scanner::normalize(pos, rot, shift, *x)).collect(),
                                 shift,
-                                rot
+                                rot,
                             });
                         }
                     }
@@ -134,23 +133,23 @@ fn solution1(input: &str) -> Result<String> {
     let mut r: Vec<HashSet<Vec3>> = vec![];
     let mut c: String = "".to_string();
     for l in input.lines().skip(1) {
-        if l.starts_with("---"){
+        if l.starts_with("---") {
             r.push(read_list(&c));
             c = String::new();
         } else {
-             c+=l;
-            c+="\n";
+            c += l;
+            c += "\n";
         }
     }
     r.push(read_list(&c));
 
     let mut finished = vec![Scanner::zero(r.remove(0))];
 
-    loop{
-        let mut new_finished:Vec<Scanner> = Vec::new();
+    loop {
+        let mut new_finished: Vec<Scanner> = Vec::new();
 
         for scanner in &finished {
-            r = r.into_iter().filter(| x| {
+            r = r.into_iter().filter(|x| {
                 match scanner.align(x) {
                     None => true,
                     Some(successes) => {
@@ -162,36 +161,36 @@ fn solution1(input: &str) -> Result<String> {
                 .collect_vec();
         }
 
-        if new_finished.len() == 0{
+        if new_finished.len() == 0 {
             break;
         }
         finished.append(&mut new_finished);
     }
 
-    Ok(format!("{}", finished.iter().flat_map(|x|x.beacons.clone()).unique().count()))
+    Ok(format!("{}", finished.iter().flat_map(|x| x.beacons.clone()).unique().count()))
 }
 
 pub(crate) fn solution2(input: &str) -> Result<String> {
     let mut r: Vec<HashSet<Vec3>> = vec![];
     let mut c: String = "".to_string();
     for l in input.lines().skip(1) {
-        if l.starts_with("---"){
+        if l.starts_with("---") {
             r.push(read_list(&c));
             c = String::new();
         } else {
-            c+=l;
-            c+="\n";
+            c += l;
+            c += "\n";
         }
     }
     r.push(read_list(&c));
 
     let mut finished = vec![Scanner::zero(r.remove(0))];
 
-    loop{
-        let mut new_finished:Vec<Scanner> = Vec::new();
+    loop {
+        let mut new_finished: Vec<Scanner> = Vec::new();
 
         for scanner in &finished {
-            r = r.into_iter().filter(| x| {
+            r = r.into_iter().filter(|x| {
                 match scanner.align(x) {
                     None => true,
                     Some(successes) => {
@@ -203,15 +202,15 @@ pub(crate) fn solution2(input: &str) -> Result<String> {
                 .collect_vec();
         }
 
-        if new_finished.len() == 0{
+        if new_finished.len() == 0 {
             break;
         }
         finished.append(&mut new_finished);
     }
 
-    let max = finished.iter().tuple_combinations().map(|(x1,x2)|{
-        let dis:Vec3 = x1.pos - x2.pos;
-        dis.0.abs()+dis.1.abs()+dis.2.abs()
+    let max = finished.iter().tuple_combinations().map(|(x1, x2)| {
+        let dis: Vec3 = x1.pos - x2.pos;
+        dis.0.abs() + dis.1.abs() + dis.2.abs()
     }).max().unwrap();
 
     Ok(format!("{}", max))
@@ -311,7 +310,7 @@ mod tests {
         let scanner2 = zero.align(&l2).unwrap();
         assert_eq!("[68,-1246,-43]", format!("{}", scanner2.pos));
 
-        assert_eq!("[-618,-824,-621]", format!("{}", Scanner::normalize(scanner2.pos, scanner2.rot, scanner2.shift, Vec3(686,422,578))));
+        assert_eq!("[-618,-824,-621]", format!("{}", Scanner::normalize(scanner2.pos, scanner2.rot, scanner2.shift, Vec3(686, 422, 578))));
 
         let scanner3 = scanner2.align(&l4).unwrap();
         assert_eq!("[-20,-1133,1061]", format!("{}", scanner3.pos));
@@ -601,7 +600,7 @@ mod tests {
 891,-625,532
 -652,-548,-490
 30,-46,-14")).unwrap());
-}
+    }
 
     #[test]
     fn run_solution2() {
