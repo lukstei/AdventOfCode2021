@@ -4,6 +4,7 @@ use itertools::{izip, Itertools};
 use std::fmt::{Display, Formatter};
 
 type HashSet<T> = rustc_hash::FxHashSet<T>;
+//type HashSet<T> = std::collections::HashSet<T>;
 
 impl Vec3 {
 
@@ -69,8 +70,8 @@ impl Scanner {
     fn zero(beacons: HashSet<Vec3>) -> Scanner {
         Scanner {
             rot: Vec3(1,1,1),
-            shift: 0,
             pos: Vec3(0, 0, 0),
+            shift: 0,
             beacons,
         }
     }
@@ -100,13 +101,13 @@ impl Scanner {
                         let alignment_beacon = alignment_beacon.shift(shift);
 
                         let pos = self_alignment - alignment_beacon * rot;
-                        let s: HashSet<Vec3> = detected_beacons.iter().map(|x| Scanner::normalize(pos, rot, shift, *x)).collect();
-                        let intersections = self.beacons.intersection(&s).count();
+                        let intersections = detected_beacons.iter().filter(|x| self.beacons.contains(&Scanner::normalize(pos, rot, shift, **x))).count();
+
                         assert!(intersections >= 1);
                         if intersections >= 12 {
                             return Some(Scanner {
-                                pos: pos,
-                                beacons: s.clone(),
+                                pos,
+                                beacons: detected_beacons.iter().map(|x| Scanner::normalize(pos, rot, shift, *x)).collect(),
                                 shift,
                                 rot
                             });
@@ -170,7 +171,7 @@ fn solution1(input: &str) -> Result<String> {
     Ok(format!("{}", finished.iter().flat_map(|x|x.beacons.clone()).unique().count()))
 }
 
-fn solution2(input: &str) -> Result<String> {
+pub(crate) fn solution2(input: &str) -> Result<String> {
     let mut r: Vec<HashSet<Vec3>> = vec![];
     let mut c: String = "".to_string();
     for l in input.lines().skip(1) {

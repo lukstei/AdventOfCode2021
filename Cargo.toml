@@ -12,3 +12,6 @@ itertools = "0.10.1"
 indoc = "1.0"
 pathfinding = "3.0.5"
 rustc-hash = { version = "1.0"}
+
+[profile.release]
+debug = 1

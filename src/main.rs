@@ -43,5 +43,5 @@ pub fn run_solution(input_file: &str, solution: Solution) -> anyhow::Result<()> 
 }
 
 fn main() -> anyhow::Result<()> {
-    run_solution("day2.txt", day2::solution2)
+    run_solution("day19.txt", day19::solution2)
 }
