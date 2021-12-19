@@ -26,6 +26,7 @@ dependencies = [
  "itertools",
  "pathfinding",
  "regex",
+ "rustc-hash",
 ]
 
 [[package]]
