@@ -16,7 +16,10 @@ mod day15;
 mod day16;
 mod day17;
 mod day18;
+mod day19;
 mod day2;
+mod day20;
+mod day21;
 mod day3;
 mod day4;
 mod day5;
@@ -26,7 +29,6 @@ mod day8;
 mod day9;
 mod template;
 mod util;
-mod day19;
 
 type Solution = fn(&str) -> anyhow::Result<String>;
 

@@ -18,7 +18,7 @@ impl Vec3 {
             4 => Vec3(self.2, self.0, self.1),
             5 => Vec3(self.2, self.1, self.0),
 
-            _ => panic!("Invalid")
+            _ => panic!("Invalid"),
         }
     }
 }
@@ -55,7 +55,6 @@ impl Display for Vec3 {
         write!(f, "[{},{},{}]", self.0, self.1, self.2)
     }
 }
-
 
 struct Scanner {
     pub pos: Vec3,
@@ -100,13 +99,22 @@ impl Scanner {
                         let alignment_beacon = alignment_beacon.shift(shift);
 
                         let pos = self_alignment - alignment_beacon * rot;
-                        let intersections = detected_beacons.iter().filter(|x| self.beacons.contains(&Scanner::normalize(pos, rot, shift, **x))).count();
+                        let intersections = detected_beacons
+                            .iter()
+                            .filter(|x| {
+                                self.beacons
+                                    .contains(&Scanner::normalize(pos, rot, shift, **x))
+                            })
+                            .count();
 
                         assert!(intersections >= 1);
                         if intersections >= 12 {
                             return Some(Scanner {
                                 pos,
-                                beacons: detected_beacons.iter().map(|x| Scanner::normalize(pos, rot, shift, *x)).collect(),
+                                beacons: detected_beacons
+                                    .iter()
+                                    .map(|x| Scanner::normalize(pos, rot, shift, *x))
+                                    .collect(),
                                 shift,
                                 rot,
                             });
@@ -125,8 +133,13 @@ fn read_list(s: &str) -> HashSet<Vec3> {
         .lines()
         .map(|x| {
             let vec = x.trim().split(',').collect_vec();
-            Vec3(vec[0].parse().unwrap(), vec[1].parse().unwrap(), vec[2].parse().unwrap())
-        }).collect()
+            Vec3(
+                vec[0].parse().unwrap(),
+                vec[1].parse().unwrap(),
+                vec[2].parse().unwrap(),
+            )
+        })
+        .collect()
 }
 
 fn solution1(input: &str) -> Result<String> {
@@ -149,15 +162,15 @@ fn solution1(input: &str) -> Result<String> {
         let mut new_finished: Vec<Scanner> = Vec::new();
 
         for scanner in &finished {
-            r = r.into_iter().filter(|x| {
-                match scanner.align(x) {
+            r = r
+                .into_iter()
+                .filter(|x| match scanner.align(x) {
                     None => true,
                     Some(successes) => {
                         new_finished.push(successes);
                         false
                     }
-                }
-            })
+                })
                 .collect_vec();
         }
 
@@ -167,7 +180,14 @@ fn solution1(input: &str) -> Result<String> {
         finished.append(&mut new_finished);
     }
 
-    Ok(format!("{}", finished.iter().flat_map(|x| x.beacons.clone()).unique().count()))
+    Ok(format!(
+        "{}",
+        finished
+            .iter()
+            .flat_map(|x| x.beacons.clone())
+            .unique()
+            .count()
+    ))
 }
 
 pub(crate) fn solution2(input: &str) -> Result<String> {
@@ -190,15 +210,15 @@ pub(crate) fn solution2(input: &str) -> Result<String> {
         let mut new_finished: Vec<Scanner> = Vec::new();
 
         for scanner in &finished {
-            r = r.into_iter().filter(|x| {
-                match scanner.align(x) {
+            r = r
+                .into_iter()
+                .filter(|x| match scanner.align(x) {
                     None => true,
                     Some(successes) => {
                         new_finished.push(successes);
                         false
                     }
-                }
-            })
+                })
                 .collect_vec();
         }
 
@@ -208,17 +228,22 @@ pub(crate) fn solution2(input: &str) -> Result<String> {
         finished.append(&mut new_finished);
     }
 
-    let max = finished.iter().tuple_combinations().map(|(x1, x2)| {
-        let dis: Vec3 = x1.pos - x2.pos;
-        dis.0.abs() + dis.1.abs() + dis.2.abs()
-    }).max().unwrap();
+    let max = finished
+        .iter()
+        .tuple_combinations()
+        .map(|(x1, x2)| {
+            let dis: Vec3 = x1.pos - x2.pos;
+            dis.0.abs() + dis.1.abs() + dis.2.abs()
+        })
+        .max()
+        .unwrap();
 
     Ok(format!("{}", max))
 }
 
 mod tests {
+    use crate::day19::{read_list, solution1, solution2, Scanner, Vec3};
     use crate::run_solution;
-    use crate::day19::{read_list, Scanner, solution1, solution2, Vec3};
     use indoc::indoc;
 
     const INPUT: &'static str = "day19.txt";
@@ -227,7 +252,8 @@ mod tests {
 
     #[test]
     fn test_1() {
-        let l1 = read_list("404,-588,-901
+        let l1 = read_list(
+            "404,-588,-901
 528,-643,409
 -838,591,734
 390,-675,-793
@@ -251,9 +277,11 @@ mod tests {
 630,319,-379
 443,580,662
 -789,900,-551
-459,-707,401");
+459,-707,401",
+        );
 
-        let l2 = read_list("686,422,578
+        let l2 = read_list(
+            "686,422,578
 605,423,415
 515,917,-361
 -336,658,858
@@ -277,9 +305,11 @@ mod tests {
 -364,-763,-893
 807,-499,-711
 755,-354,-619
-553,889,-390");
+553,889,-390",
+        );
 
-        let l4 = read_list("727,592,562
+        let l4 = read_list(
+            "727,592,562
 -293,-554,779
 441,611,-461
 -714,465,-776
@@ -304,13 +334,25 @@ mod tests {
 839,-516,451
 891,-625,532
 -652,-548,-490
-30,-46,-14");
+30,-46,-14",
+        );
 
         let zero = Scanner::zero(l1);
         let scanner2 = zero.align(&l2).unwrap();
         assert_eq!("[68,-1246,-43]", format!("{}", scanner2.pos));
 
-        assert_eq!("[-618,-824,-621]", format!("{}", Scanner::normalize(scanner2.pos, scanner2.rot, scanner2.shift, Vec3(686, 422, 578))));
+        assert_eq!(
+            "[-618,-824,-621]",
+            format!(
+                "{}",
+                Scanner::normalize(
+                    scanner2.pos,
+                    scanner2.rot,
+                    scanner2.shift,
+                    Vec3(686, 422, 578)
+                )
+            )
+        );
 
         let scanner3 = scanner2.align(&l4).unwrap();
         assert_eq!("[-20,-1133,1061]", format!("{}", scanner3.pos));
@@ -318,7 +360,10 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!("79", solution1(indoc!("--- scanner 0 ---
+        assert_eq!(
+            "79",
+            solution1(indoc!(
+                "--- scanner 0 ---
 404,-588,-901
 528,-643,409
 -838,591,734
@@ -453,7 +498,10 @@ mod tests {
 839,-516,451
 891,-625,532
 -652,-548,-490
-30,-46,-14")).unwrap());
+30,-46,-14"
+            ))
+            .unwrap()
+        );
     }
 
     #[test]
@@ -464,7 +512,10 @@ mod tests {
     // PART 2
     #[test]
     fn test_part2() {
-        assert_eq!("3621", solution2(indoc!("--- scanner 0 ---
+        assert_eq!(
+            "3621",
+            solution2(indoc!(
+                "--- scanner 0 ---
 404,-588,-901
 528,-643,409
 -838,591,734
@@ -599,7 +650,10 @@ mod tests {
 839,-516,451
 891,-625,532
 -652,-548,-490
-30,-46,-14")).unwrap());
+30,-46,-14"
+            ))
+            .unwrap()
+        );
     }
 
     #[test]

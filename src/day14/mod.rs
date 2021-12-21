@@ -113,7 +113,6 @@ fn solution1(input: &str) -> Result<String> {
                 break;
             }
 
-
             let c1 = x[i];
             let c2 = x[i + 1];
             for ins in ys.iter() {
