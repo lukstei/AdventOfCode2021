@@ -29,6 +29,7 @@ mod day8;
 mod day9;
 mod template;
 mod util;
+mod day22;
 
 type Solution = fn(&str) -> anyhow::Result<String>;
 
@@ -45,5 +46,5 @@ pub fn run_solution(input_file: &str, solution: Solution) -> anyhow::Result<()> 
 }
 
 fn main() -> anyhow::Result<()> {
-    run_solution("day19.txt", day19::solution2)
+    run_solution("day22.txt", day22::solution2)
 }
