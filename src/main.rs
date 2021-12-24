@@ -3,7 +3,7 @@
 #![allow(unused_variables)]
 #![allow(unused_comparisons)]
 
-use crate::day24::{day24, solution1_s};
+use crate::day24::{day24};
 use std::fs;
 use std::path::Path;
 
@@ -49,6 +49,5 @@ pub fn run_solution(input_file: &str, solution: Solution) -> anyhow::Result<()> 
 }
 
 fn main() -> anyhow::Result<()> {
-    solution1_s("")?;
     Ok(())
 }
