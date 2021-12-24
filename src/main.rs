@@ -3,6 +3,7 @@
 #![allow(unused_variables)]
 #![allow(unused_comparisons)]
 
+use crate::day24::{day24, solution1_s};
 use std::fs;
 use std::path::Path;
 
@@ -22,6 +23,7 @@ mod day20;
 mod day21;
 mod day22;
 mod day23;
+mod day24;
 mod day3;
 mod day4;
 mod day5;
@@ -31,7 +33,6 @@ mod day8;
 mod day9;
 mod template;
 mod util;
-mod day24;
 
 type Solution = fn(&str) -> anyhow::Result<String>;
 
@@ -48,5 +49,6 @@ pub fn run_solution(input_file: &str, solution: Solution) -> anyhow::Result<()> 
 }
 
 fn main() -> anyhow::Result<()> {
-    run_solution("day22.txt", day22::solution2)
+    solution1_s("")?;
+    Ok(())
 }
