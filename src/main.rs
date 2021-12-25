@@ -3,7 +3,7 @@
 #![allow(unused_variables)]
 #![allow(unused_comparisons)]
 
-use crate::day24::{day24};
+use crate::day24::day24;
 use std::fs;
 use std::path::Path;
 
@@ -24,6 +24,7 @@ mod day21;
 mod day22;
 mod day23;
 mod day24;
+mod day25;
 mod day3;
 mod day4;
 mod day5;

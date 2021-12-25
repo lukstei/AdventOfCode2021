@@ -716,15 +716,12 @@ fn find_highest_reachable_number(
         .next()
 }
 
-
 fn solution2(input: &str) -> Result<String> {
     Ok(format!("{}", "?"))
 }
 
 mod tests {
-    use crate::day24::{
-        parse, solution1, solution2, BackAnalyzer, Expr, State,
-    };
+    use crate::day24::{parse, solution1, solution2, BackAnalyzer, Expr, State};
     use crate::run_solution;
     use indoc::indoc;
 
